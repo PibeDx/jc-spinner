@@ -52,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
         clearData();
         initData();
         initSpinnerAdapters();
-        //initSpinnerOnItemSelectListener();
+
+
         initSelectionSpinner();
+
+
 
         mRed = new Red(2, "Red 2", String.valueOf(2));
         mMicroRed = new MicroRed(5, "MicroRed5", new Red(2));
@@ -62,13 +65,16 @@ public class MainActivity extends AppCompatActivity {
 
         int positionRed = mRedAdapter.getPosition(mSpinnerValRed);
         Log.i(TAG, "positionRed: " +positionRed);
-        mSpRed.setSelection(positionRed);
+        mSpRed.setSelection(positionRed,false);
 
         initSpinnerMicroRed(2);
 
         int positionMicroRed = mMicroRedAdapter.getPosition(mSpinnerValMicroRed);
         Log.i(TAG, "positionMicroRed: " +positionMicroRed);
-        mSpMicrored.setSelection(positionMicroRed);
+        mSpMicrored.setSelection(positionMicroRed,false);
+
+
+        //El evento OnItemSelectListener debe llamarse luego del setSelection
         initSpinnerOnItemSelectListener();
 
     }
@@ -76,19 +82,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-
     }
 
     private void initDao() {
@@ -138,12 +141,9 @@ public class MainActivity extends AppCompatActivity {
         @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             idRed= mRedAdapter.getItem(position).getId();
             Log.i(TAG, idRed);
-            ///Log.i(TAG, String.valueOf(mMinsa.getRed().getCoRed()));
             if (!idRed.equals("-1")) {
-//                if (/*microRedAdapter==null && */!idRed.equals(String.valueOf(mMinsa.getRed().getCoRed()))) {
                 Log.i(TAG, "microRedAdapter!=null");
                 initSpinnerMicroRed(Integer.valueOf(idRed));
-//                }
 
             }
             SpinnerVal red = mRedAdapter.getItem(position);
